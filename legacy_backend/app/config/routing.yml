@@ -1,0 +1,4 @@
+hello_route:
+    path: /hello
+    defaults: { _controller: AppBundle:Default:hello }
+    methods:  [GET]

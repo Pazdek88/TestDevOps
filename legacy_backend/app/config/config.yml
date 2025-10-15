@@ -1,0 +1,4 @@
+framework:
+    secret: 'S3CR3T'
+    router:
+        resource: '%kernel.root_dir%/config/routing.yml'

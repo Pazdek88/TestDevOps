@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  legacy_backend:
+    build:
+      context: ./legacy_backend
+    container_name: legacy_backend
+    #ports:
+    #  - "8080:80"
+    volumes:
+      - ./legacy_backend:/var/www/html
+      - /var/www/html/vendor
+    working_dir: /var/www/html
+
+  legacy_frontend:
+    image: node:18-alpine
+    container_name: legacy_frontend_builder
+    working_dir: /app
+    volumes:
+      - ./legacy_frontend:/app
+    command: sh -c "npm install --save-dev html-webpack-plugin && npx webpack --mode production"
+
+  nginx:
+    image: nginx:alpine
+    container_name: web_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./legacy_frontend/dist:/usr/share/nginx/html/static/old_frontend
+    depends_on:
+      - legacy_backend
+      - legacy_frontend

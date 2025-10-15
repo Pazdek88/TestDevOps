@@ -1,0 +1,10 @@
+{
+  "name": "example/symfony34",
+  "require": {
+    "php": ">=7.0",
+    "symfony/symfony": "3.4.*"
+  },
+  "autoload": {
+    "psr-4": { "AppBundle\\": "src/AppBundle" }
+  }
+}
